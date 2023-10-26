@@ -15,7 +15,7 @@ const SignIn = () => {
     setError('')
     try {
       await signIn(email, password)
-      navigate('/account')
+      navigate('/characters')   //navigate to characters page after logging in
     } catch (e) {
       setError(e.message)
       console.log(e.message)
@@ -25,7 +25,7 @@ const SignIn = () => {
   return (
     <div className='max-w-[700px] mx-auto my-16 p-4'>
       <div>
-        <h1 className='text-2xl font-bold py-2'>Sign in to your Tracker!</h1>
+        <h1 className='text-2xl font-bold py-2'>Got Character Lookup</h1>
         <p className='py-2'>
           Don't have one?{' '}
           <Link to='/signup' className='underline'>

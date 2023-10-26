@@ -1,0 +1,16 @@
+.background-img{
+    background-image: url('/images/got.jpg');
+    background-size: cover;
+    height: 700px;
+    text-align: center;
+    font-size: x-large;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    justify-content: center;
+    
+    }
+
+    
+.gotcard{
+    justify-content: center;
+}
+
