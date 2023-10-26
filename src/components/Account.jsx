@@ -31,8 +31,7 @@ const Account = () => {
 
   // Delete character from Firebase///////////////////////////////////////////////////
   const deleteFavCharacter = async (id) => {
-    const docRef = doc(db, 'firstCharacter', id);
-    await deleteDoc(docRef);
+    await deleteDoc(doc(db, 'firstCharacter', id));
   };
 
 
@@ -40,6 +39,7 @@ const Account = () => {
     if (user && user.uid) {
        //here its querrying the db based on the user id
       const q = query(collection(db, 'firstCharacter'), where('userID', '==', user.uid));
+      
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         //this below, is greating a list for the characters (objects) in the database
         let favoriteArr = [];
@@ -77,8 +77,9 @@ const Account = () => {
                 PlayedBy: {character.playedby}
               </Card.Text>
               <button className='mr-2' color='red' onClick={() => deleteFavCharacter(character.id)}>
-              <MdOutlineRemoveCircle size={30} />
-            </button>
+                <MdOutlineRemoveCircle size={30} />
+                </button>
+            
             </Card.Body>
           </Card>
         ))}
