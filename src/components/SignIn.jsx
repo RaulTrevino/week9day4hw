@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
+import './GOT2.css'
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
@@ -24,7 +25,7 @@ const SignIn = () => {
 
   return (
     <div className='max-w-[700px] mx-auto my-16 p-4'>
-      <div>
+      <div className='signin-BG'>
         <h1 className='text-2xl font-bold py-2'>Got Character Lookup</h1>
         <p className='py-2'>
           Don't have one?{' '}

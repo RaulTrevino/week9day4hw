@@ -12,6 +12,7 @@ import {
   where,
   deleteDoc,
   } from 'firebase/firestore'; 
+  import './GOT1.css'
 import { MdOutlineRemoveCircle } from 'react-icons/md';
 
 const Account = () => {
@@ -19,7 +20,7 @@ const Account = () => {
   const [favorites, setFavorites] = useState([]); 
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
+ const handleLogout = async () => {
     try {
       await logout();
       navigate('/');
