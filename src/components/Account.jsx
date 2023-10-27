@@ -11,16 +11,47 @@ import {
   doc,
   where,
   deleteDoc,
+  updateDoc,
   } from 'firebase/firestore'; 
   import './GOT1.css'
 import { MdOutlineRemoveCircle } from 'react-icons/md';
+import {GrEdit} from 'react-icons/gr'
 
 const Account = () => {
   const { user, logout } = UserAuth();
   const [favorites, setFavorites] = useState([]); 
   const navigate = useNavigate();
+  const [editingCharacterID, setEditingCharacterID] = useState(null);
+  const [editFormData, setEditFormData] = useState({});
+  
 
- const handleLogout = async () => {
+  ////start editing function
+  const startEditing = (character) => {
+    setEditFormData({
+      name: character.name,
+      culture: character.culture,
+      titles: character.titles,
+      playedby: character.playedby,
+      
+    });
+    setEditingCharacterID(character.id);
+  };
+ //update firebase function////////////////////////
+ const updateCharacter= async()=>{
+  if(editingCharacterID){
+    const characterRef= doc(db,'firstCharacter', editingCharacterID)
+    await updateDoc(characterRef,{
+      name: editFormData.service,
+      culture:editFormData.culture,
+      titles:editFormData.titles,
+      playedby:editFormData.playedby
+    })
+    setEditingCharacterID(null)
+    setEditFormData(null)
+  }
+ }
+
+const handleLogout = async () => {
     try {
       await logout();
       navigate('/');
@@ -54,8 +85,8 @@ const Account = () => {
       });
       return () => unsubscribe;
     } 
-}, [user]);
-
+  }, [user]);
+ 
   return (
     <div className='max-w-[600px] mx-auto my-16 p-4'>
       <h1 className='text-2xl font-bold py-4'>Account</h1>
@@ -66,7 +97,9 @@ const Account = () => {
 
       <h2 className='text-xl font-bold my-4'>Favorite Characters</h2>
       <div>
-        {favorites.map((character, index) => (
+        {favorites.map((character, index) => {
+          const isEditingCharacter = editingCharacterID === character.id
+          return(
           <Card key={index} className='my-2'>
             <Card.Body>
               <Card.Title>{character.name}</Card.Title>
@@ -77,13 +110,21 @@ const Account = () => {
                 <br/>
                 PlayedBy: {character.playedby}
               </Card.Text>
-              <button className='mr-2' color='red' onClick={() => deleteFavCharacter(character.id)}>
+                <button className='mr-2' color='red' onClick={() => deleteFavCharacter(character.id)}>
                 <MdOutlineRemoveCircle size={30} />
                 </button>
+                <button onClick={()=>startEditing(character)}><GrEdit size={30}/></button>
+               {isEditingCharacter &&(
+                <div>
+                <h3>edit character</h3>
+                <input></input><input></input><br/><input></input><input></input>
+                </div>
+               )}
             
             </Card.Body>
           </Card>
-        ))}
+          );
+          })}
        
       </div>
     </div>
@@ -91,3 +132,4 @@ const Account = () => {
 };
 
 export default Account;
+

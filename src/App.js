@@ -17,7 +17,7 @@ function App() {
      <h1 className="text-3xl font-bold underline">
 
      </h1>
-    <AuthContextProvider>
+    <AuthContextProvider> 
     <Routes>
         <Route path='/' element={<SignIn/>}/>
         <Route path='/signup' element={<SignUp/>}/>
@@ -32,5 +32,7 @@ function App() {
 }
 
 
+
+// 
 
 export default App;
